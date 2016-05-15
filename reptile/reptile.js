@@ -4,16 +4,11 @@ var superagent = require('superagent');
 var Science = require('../node/model/Science');
 
 var app = express();
+var initPage = 1;
 
-setInterval(function () {
-
-},1000*3600*12);
-
-
-app.get('/', function (req, res) {
+function appAction() {
   // 用 superagent 去抓取 https://cnodejs.org/ 的内容
-  var page = 5;
-  (function startReptile(page,req,res) {
+  (function startReptile(page) {
     superagent.get('http://www.bigear.cn/reslist-3199-'+ page +'.html')
     .set('User-Agent','Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36')
     .end(function (err, sres) {
@@ -65,7 +60,6 @@ app.get('/', function (req, res) {
               .end(function(err,sres) {
                 if(err) {
                   items.push(item);
-                  console.log('err', err);
                 }else {
                     var $ = cheerio.load(sres.text);
                     var text = $('#enText').text();
@@ -79,9 +73,9 @@ app.get('/', function (req, res) {
                     // res.send(science);
                     science.save(function(err) {
                       if (err) {
-                        console.log(err);
+                        //console.log(err);
                       } else {
-                        console.log('success');
+                        //console.log('success');
                       }
                     });
               }
@@ -91,21 +85,27 @@ app.get('/', function (req, res) {
                 //  res.send(result);
                 //  finish one page
                 page--;
-                console.log(page);
                 if (page>0) {
-                  startReptile(page--,req,res);
+                  startReptile(page);
                 }else {
-                  res.send('finish');
+                  // res.send('finish');
+                  console.log('finish');
+                  initPage = 1;
                 }
             }
         })();
 
         });
       });
-  })(page,req,res);
+  })(initPage);
 
-});
+}
+  appAction();
+setInterval(function () {
+  appAction();
+},1000*3600*12);
 
-app.listen(3000, function () {
-  console.log('app is listening at port 3000');
-});
+
+// app.listen(3000, function () {
+//   console.log('app is listening at port 3000');
+// });

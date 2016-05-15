@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
       Science.find({},'-_id -__v')
       .limit(pagesize)
       .skip((page-1)*pagesize)
-      .sort({'create':'-1'})
+      .sort({'create':-1})
       .exec(function (err,list) {
         if (err) {
 			        res.jsonp('error',{
