@@ -5,6 +5,11 @@ var Science = require('../node/model/Science');
 
 var app = express();
 
+setInterval(function () {
+
+},1000*3600*12);
+
+
 app.get('/', function (req, res) {
   // 用 superagent 去抓取 https://cnodejs.org/ 的内容
   var page = 5;
