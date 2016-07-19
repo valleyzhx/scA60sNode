@@ -3,7 +3,7 @@ var database = {
   port: '27017',
   userName: '',
   password: '',
-  db: 'test'
+  db: 'sca60'
 }
 
 module.exports = database;

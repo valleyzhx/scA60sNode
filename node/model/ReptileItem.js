@@ -1,13 +1,9 @@
 var mongoose = require('mongoose');
-var db = require('../../configure/db');
 
-mongoose.connect('mongodb://localhost/test');
-
-var ReptileItem = mongoose.model('Science', {
+var ReptileItem = mongoose.model('ReptileItem', {
   title:String,
-  mp3:String,
-  content:String,
-  create:String
+  href:String,
+  time:String
 });
 
 module.exports = ReptileItem;
