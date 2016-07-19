@@ -132,9 +132,9 @@ function checkFailAction() {
 }
 
   appAction();
-// setInterval(function () {
-//   appAction();
-// },1000*3600*12);
+setInterval(function () {
+  appAction();
+},1000*3600*12);
 setInterval(function () {
   checkFailAction();
 },1000*3600);
